@@ -1,2 +1,2 @@
 # sample-hello-world
-sample for Tekton
+sample hello pplication

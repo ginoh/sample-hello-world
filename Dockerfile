@@ -1,10 +1,14 @@
 FROM golang as builder
 
-EXPOSE 8080
+WORKDIR /go/src/sample-hello-world
 
-COPY hello-world.go hello-world.go
-RUN go build -o bin/hello-world
+COPY hello-world.go go.mod ./
+RUN go mod download && \
+    go install
 
 FROM ubuntu
-COPY --from=builder /go/bin/hello-world /usr/local/bin
-CMD ["hello-world"]
+
+EXPOSE 8080
+
+COPY --from=builder /go/bin/sample-hello-world /usr/local/bin
+CMD ["sample-hello-world"]
